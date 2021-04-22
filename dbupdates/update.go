@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"reflect"
 )
 
@@ -14,6 +15,7 @@ var API_KEY string = "07bc3b6ddad9e6e1a9882a0b2509007f"
 var API_URL string = "http://api.positionstack.com/v1/forward"
 
 func main() {
+
 	raw, err := ioutil.ReadFile("data.json")
 	if err != nil {
 		fmt.Println(err.Error())
@@ -38,7 +40,22 @@ func main() {
 		v["lat"] = lat
 	}
 
-	fmt.Println(data)
+	//fmt.Println(data)
+	enc := json.NewEncoder(os.Stdout)
+	err = enc.Encode(data)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	json, err := json.Marshal(data)
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	fmt.Println(json)
+
+	ioutil.WriteFile("dataclean.json", json, 0644)
 
 }
 
