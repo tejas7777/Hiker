@@ -6,10 +6,13 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+
+	test "hiker/test"
 )
 
 func main() {
 	fmt.Println("Hello")
+	test.TestConnection()
 	//initialize echo
 	e := echo.New()
 

@@ -1,6 +1,10 @@
 package models
 
-import "github.com/gomodule/redigo/redis"
+import (
+	"github.com/gomodule/redigo/redis"
+	// "go.mongodb.org/mongo-driver/mongo"
+	// "go.mongodb.org/mongo-driver/mongo/options"
+)
 
 func SetHash(hash string, field string, value string) error {
 
@@ -29,4 +33,8 @@ func GetHash(hash string, field string) error {
 	}
 
 	return nil
+}
+
+func ChechTrailAllowed(trail string) (bool, error) {
+	return true, nil
 }
