@@ -24,6 +24,7 @@ func main() {
 
 	// Routes
 	e.POST("/auth", api.Auth)
+	e.GET("check", api.Check)
 	// Start server
 	e.Logger.Fatal(e.Start(":1320"))
 

@@ -38,3 +38,13 @@ func GetHash(hash string, field string) error {
 func ChechTrailAllowed(trail string) (bool, error) {
 	return true, nil
 }
+
+func CheckKey(key string) (bool, error) {
+	conn := Pool.Get()
+	defer conn.Close()
+	ok, err := redis.Bool(conn.Do("EXISTS", key))
+	if err != nil {
+		return ok, err
+	}
+	return ok, err
+}

@@ -26,3 +26,18 @@ func CheckUsernameExist(username string) (string, error) {
 
 	return "Set", err
 }
+
+func Authenticate(key string) (bool, error) {
+	khash, err := HashKey(key)
+	if err != nil {
+		return false, err
+	}
+	result, err := model.CheckKey(khash)
+
+	if err != nil {
+		return false, err
+	}
+
+	return result, nil
+
+}

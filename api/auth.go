@@ -62,3 +62,25 @@ func Auth(c echo.Context) error {
 
 	}
 }
+
+func Check(c echo.Context) error {
+	key := c.QueryParam("key")
+
+	if key == "" {
+		return c.NoContent(400)
+	}
+
+	res, err := handler.Authenticate(key)
+
+	if err != nil {
+		fmt.Errorf(err.Error())
+		return c.NoContent(500)
+	}
+
+	if res == false {
+		return c.NoContent(403)
+	}
+
+	return c.String(200, "The Key is Authenticated!")
+
+}
