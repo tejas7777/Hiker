@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"sync"
 
+	"os"
+
 	"github.com/gomodule/redigo/redis"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -38,12 +40,12 @@ var mongoOnce sync.Once
 //I have used below constants just to hold required database config's.
 const (
 	USERNAME = "root"
-	PASSWORD = "tejas99"
 )
 
 //GetMongoClient - Return mongodb connection to work with
 func GetMongoClient() (*mongo.Client, error) {
 	//Perform connection creation operation only once.
+	PASSWORD := os.Getenv("PASSWORD")
 	mongoOnce.Do(func() {
 		// Set client options
 		connectionstring := fmt.Sprintf("mongodb+srv://%s:%s@cluster0.pgmtq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", USERNAME, PASSWORD)

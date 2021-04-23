@@ -7,11 +7,13 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
+	env "hiker/env"
 	test "hiker/test"
 )
 
 func main() {
 	fmt.Println("Hello")
+	env.SetEnvVariables()
 	test.TestConnection()
 	//initialize echo
 	e := echo.New()
