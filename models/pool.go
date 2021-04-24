@@ -3,7 +3,7 @@ package models
 import (
 	"context"
 	"fmt"
-	"sync"
+	"log"
 
 	"os"
 
@@ -35,7 +35,7 @@ var clientInstance *mongo.Client
 var clientInstanceError error
 
 //Used to execute client creation procedure only once.
-var mongoOnce sync.Once
+//var mongoOnce sync.Once
 
 //I have used below constants just to hold required database config's.
 const (
@@ -46,21 +46,58 @@ const (
 func GetMongoClient() (*mongo.Client, error) {
 	//Perform connection creation operation only once.
 	PASSWORD := os.Getenv("PASSWORD")
-	mongoOnce.Do(func() {
-		// Set client options
-		connectionstring := fmt.Sprintf("mongodb+srv://%s:%s@cluster0.pgmtq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", USERNAME, PASSWORD)
-		clientOptions := options.Client().ApplyURI(connectionstring)
-		// Connect to MongoDB
-		client, err := mongo.Connect(context.TODO(), clientOptions)
-		if err != nil {
-			clientInstanceError = err
-		}
-		// Check the connection
-		err = client.Ping(context.TODO(), nil)
-		if err != nil {
-			clientInstanceError = err
-		}
-		clientInstance = client
-	})
+
+	//----------NOT USING GO SYNC FOR NOW-------------------------
+	// mongoOnce.Do(func() {
+	// 	// Set client options
+	// 	connectionstring := fmt.Sprintf("mongodb+srv://%s:%s@cluster0.pgmtq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", USERNAME, PASSWORD)
+	// 	clientOptions := options.Client().ApplyURI(connectionstring)
+	// 	// Connect to MongoDB
+	// 	ctx := context.TODO()
+	// 	client, err := mongo.Connect(ctx, clientOptions)
+	// 	if err != nil {
+	// 		clientInstanceError = err
+	// 	}
+	// 	// Check the connection
+	// 	err = client.Ping(ctx, nil)
+	// 	if err != nil {
+	// 		clientInstanceError = err
+	// 	}
+	// 	clientInstance = client
+	// })
+	//-------------------------------------------------------------------
+
+	// Set client options
+	connectionstring := fmt.Sprintf("mongodb+srv://%s:%s@cluster0.pgmtq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", USERNAME, PASSWORD)
+	clientOptions := options.Client().ApplyURI(connectionstring)
+	// Connect to MongoDB
+	ctx := context.TODO()
+	client, err := mongo.Connect(ctx, clientOptions)
+	if err != nil {
+		clientInstanceError = err
+	}
+	// Check the connection
+	err = client.Ping(ctx, nil)
+	if err != nil {
+		clientInstanceError = err
+	}
+	clientInstance = client
+
 	return clientInstance, clientInstanceError
+}
+
+func Disconnect() error {
+	if clientInstance == nil {
+		return nil
+	}
+
+	err := clientInstance.Disconnect(context.TODO())
+	if err != nil {
+		log.Fatal(err)
+		return err
+	}
+
+	// TODO optional you can log your closed MongoDB client
+	fmt.Println("Connection to MongoDB closed.")
+	return nil
 }
