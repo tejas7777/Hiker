@@ -31,7 +31,10 @@ func Auth(c echo.Context) error {
 				fmt.Println("REPLY IS " + reply)
 
 				if reply == "Set" {
-					return c.String(409, "Already Registered")
+					resp := &payload.AuthMessage{Message: "Already Registered"}
+					c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+					c.Response().WriteHeader(409)
+					return json.NewEncoder(c.Response()).Encode(resp)
 				}
 
 				if reply == "error" && err != nil {
@@ -81,6 +84,9 @@ func Check(c echo.Context) error {
 		return c.NoContent(403)
 	}
 
-	return c.String(200, "The Key is Authenticated!")
+	resp := &payload.CheckPayload{Message: "Key is authenticated"}
+	c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	c.Response().WriteHeader(200)
+	return json.NewEncoder(c.Response()).Encode(resp)
 
 }
