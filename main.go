@@ -26,7 +26,7 @@ func main() {
 	e.POST("/auth", api.Auth)
 	e.GET("check", api.Check)
 	// Start server
-	e.Logger.Fatal(e.Start(":1320"))
+	e.Logger.Fatal(e.StartTLS(":1323", "cert.pem", "key.pem"))
 
 	//Allow Cors
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
