@@ -42,6 +42,8 @@ If the key is authentic you would get the following response
 }
 ```
 
+***
+
 #### Getting trails
 You can get list of all availaible trails to subscribe to by using the following endpoint:
 
@@ -73,3 +75,4 @@ If the request is successfull you'll get the following response:
     }
 }
 ```
+***
