@@ -5,7 +5,7 @@
 To get the API key, make a POST request containing username and password to the following endpont:
 
 ```
-POST http://localhost:1323/auth
+POST https://localhost:1323/auth
 ```
 The post body would look like this
 
