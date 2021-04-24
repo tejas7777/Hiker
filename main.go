@@ -27,8 +27,8 @@ func main() {
 	e.GET("/check", api.Check)
 	e.GET("/trails", api.Trails)
 	// Start server
-	//e.Logger.Fatal(e.StartTLS(":1323", "cert.pem", "key.pem"))
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.StartTLS(":1323", "cert.pem", "key.pem"))
+	//e.Logger.Fatal(e.Start(":1323"))
 
 	//Allow Cors
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{

@@ -41,3 +41,35 @@ If the key is authentic you would get the following response
     "message":"Key is authenticated"
 }
 ```
+
+#### Getting trails
+You can get list of all availaible trails to subscribe to by using the following endpoint:
+
+```
+GET https://localhost:1323/trails
+?key=API_KEY
+```
+
+If the request is successfull you'll get the following response:
+
+```JSON
+{
+    "trails":{
+        "60829121098b2fc8eee3ab13": "Salt Marsh Nature Trail",
+        "60829121098b2fc8eee3ab14": "Lullwater",
+        "60829121098b2fc8eee3ab15": "Midwood",
+        "60829121098b2fc8eee3ab16": "Peninsula",
+        "60829121098b2fc8eee3ab17": "Waterfall",
+        "60829121098b2fc8eee3ab18": "Alley Pond Trails",
+        "60829121098b2fc8eee3ab19": "Blue Trail",
+        "60829121098b2fc8eee3ab1a": "Orange Trail",
+        "60829121098b2fc8eee3ab1b": "Yellow Trail",
+        "60829121098b2fc8eee3ab1c": "South Preserve Trail",
+        "60829121098b2fc8eee3ab1d": "Greenbelt Blue Trail (Southern Trailhead)",
+        "60829121098b2fc8eee3ab1e": "Greenbelt Nature Center Trail"
+        .
+        .
+        .
+    }
+}
+```
