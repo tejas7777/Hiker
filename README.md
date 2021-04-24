@@ -67,9 +67,9 @@ If the request is successfull you'll get the following response:
         "60829121098b2fc8eee3ab1c": "South Preserve Trail",
         "60829121098b2fc8eee3ab1d": "Greenbelt Blue Trail (Southern Trailhead)",
         "60829121098b2fc8eee3ab1e": "Greenbelt Nature Center Trail",
-        ...
-        ...
-        ...
+        "..."
+        "..."
+        "..."
     }
 }
 ```
